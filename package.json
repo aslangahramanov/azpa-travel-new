@@ -1,0 +1,15 @@
+{
+  "name": "azpa-travel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "sass": "^1.105.2",
+    "vite": "^8.3.4"
+  }
+}
