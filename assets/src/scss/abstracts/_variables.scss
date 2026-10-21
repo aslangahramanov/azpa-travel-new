@@ -1,0 +1,32 @@
+// Rənglər
+$color-primary: #1b6bff;
+$color-primary-dark: #0f57e0;
+$color-accent: #3db2ff;
+$color-navy: #071a3d;
+$color-text: #0f1c33;
+$color-muted: #6b7a93;
+$color-border: #e6ebf3;
+$color-white: #fff;
+
+// Şrift
+$font-main: 'Manrope', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+// Layout
+$container-width: 1360px;
+$container-gutter: 24px;
+$container-gutter-sm: 18px;
+$header-height: 100px;
+$header-height-sm: 72px;
+$header-height-scrolled: 90px;
+
+// Breakpoint-lər
+$breakpoints: (
+  sm: 480px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+);
+
+// z-index
+$z-header: 50;
+$z-overlay: 40;

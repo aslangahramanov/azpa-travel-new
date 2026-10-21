@@ -1,0 +1,788 @@
+// =========================================================
+// AZPA TRAVEL — Travel Search (hero axtarış paneli)
+// Tablar, sahələr, ölkə dropdown, tarix seçici, viza növü
+// =========================================================
+
+// ---------------------------------------------------------
+// Dəyişənlər
+// ---------------------------------------------------------
+.travel-search {
+  --travel-primary: #087f8c;
+  --travel-primary-dark: #066772;
+  --travel-primary-soft: #eff8f8;
+  --travel-border: #e1e7eb;
+  --travel-text: #17252e;
+  --travel-muted: #667782;
+  --travel-placeholder: #778791;
+  --travel-danger: #dc4545;
+
+  // Dropdown menyusunun sahə kartından aşağı məsafəsi
+  --travel-menu-offset: 18px;
+  // Sahə kartının daxili boşluğu (menyunu kartın kənarına çəkmək üçün)
+  --travel-field-pad-x: 12px;
+}
+
+// ---------------------------------------------------------
+// Konteyner
+// ---------------------------------------------------------
+.travel-search {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  margin-top: 32px;
+  border: 1px solid #e8edef;
+  border-radius: 18px;
+  background: #fff;
+  color: var(--travel-text);
+  box-shadow: 0 12px 36px rgba(13, 35, 48, 0.12);
+}
+
+// ---------------------------------------------------------
+// Tablar
+// ---------------------------------------------------------
+.travel-search__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 10px 12px 0;
+  border-bottom: 1px solid var(--travel-border);
+}
+
+.travel-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px 12px 0 0;
+  background: transparent;
+  color: var(--travel-muted);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  i,
+  svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
+  }
+
+  &:hover,
+  &.is-active {
+    background: var(--travel-primary-soft);
+    color: var(--travel-primary);
+  }
+
+  &.is-active::after {
+    content: "";
+    position: absolute;
+    right: 18px;
+    bottom: -1px;
+    left: 18px;
+    height: 3px;
+    border-radius: 4px 4px 0 0;
+    background: var(--travel-primary);
+  }
+}
+
+// ---------------------------------------------------------
+// Forma və sahələr
+// ---------------------------------------------------------
+.travel-search__form {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  padding: 14px;
+}
+
+.search-fields {
+  display: grid;
+  flex: 1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
+
+  &[hidden] {
+    display: none !important;
+  }
+}
+
+.search-field {
+  position: relative;
+  min-width: 0;
+  min-height: 74px;
+  padding: 10px var(--travel-field-pad-x);
+  border: 1px solid var(--travel-border);
+  border-radius: 11px;
+  background: #fff;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus-within {
+    border-color: var(--travel-primary);
+    box-shadow: 0 0 0 2px rgba(8, 127, 140, 0.08);
+  }
+
+  // Xəta vəziyyəti (məcburi ölkə seçilməyib)
+  &:has(.is-invalid) {
+    border-color: var(--travel-danger);
+    box-shadow: 0 0 0 3px rgba(220, 69, 69, 0.08);
+  }
+
+  > label {
+    display: block;
+    margin-bottom: 5px;
+    color: #52636e;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+}
+
+// ---------------------------------------------------------
+// Ortaq trigger (ölkə, tarix, viza növü)
+// Border sahə kartındadır, trigger özü şəffafdır.
+// ---------------------------------------------------------
+.country-select__trigger,
+.date-picker__trigger,
+.visa-select__trigger {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 26px;
+  min-height: 26px;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--travel-text);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+
+  i,
+  svg {
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    color: #687984;
+  }
+}
+
+.country-select__trigger,
+.visa-select__trigger {
+  justify-content: space-between;
+  gap: 10px;
+
+  // Chevron dropdown açıq olanda fırlansın
+  i,
+  svg:last-child {
+    transition: transform 0.2s ease;
+  }
+}
+
+.country-select.is-open .country-select__trigger > :last-child,
+.visa-select.is-open .visa-select__trigger > :last-child {
+  transform: rotate(180deg);
+}
+
+.date-picker__trigger {
+  gap: 8px;
+  color: var(--travel-placeholder);
+  font-weight: 500;
+
+  &.has-value {
+    color: var(--travel-text);
+    font-weight: 650;
+  }
+}
+
+// ---------------------------------------------------------
+// Ortaq menyu (açılan panel)
+// ---------------------------------------------------------
+.country-select,
+.date-picker,
+.visa-select {
+  position: relative;
+  min-width: 0;
+}
+
+.country-select__menu,
+.date-picker__menu,
+.visa-select__menu {
+  position: absolute;
+  z-index: 100;
+  top: calc(100% + var(--travel-menu-offset));
+  display: none;
+  border: 1px solid #e7edef;
+  border-radius: 13px;
+  background: #fff;
+  box-shadow: 0 16px 45px rgba(20, 45, 55, 0.14);
+  animation: travel-menu-pop 0.16s ease-out;
+}
+
+// Menyu sahə kartının tam eninə uyğun açılır
+.country-select__menu,
+.visa-select__menu {
+  right: calc(var(--travel-field-pad-x) * -1);
+  left: calc(var(--travel-field-pad-x) * -1);
+}
+
+.date-picker__menu {
+  left: calc(var(--travel-field-pad-x) * -1);
+  width: 300px;
+}
+
+.country-select.is-open > .country-select__menu,
+.date-picker.is-open > .date-picker__menu,
+.visa-select.is-open > .visa-select__menu {
+  display: block;
+}
+
+@keyframes travel-menu-pop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ---------------------------------------------------------
+// Ölkə dropdown
+// ---------------------------------------------------------
+.country-select__value {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+  color: var(--travel-placeholder);
+  font-weight: 500;
+}
+
+.country-select__trigger.has-value .country-select__value {
+  color: var(--travel-text);
+  font-weight: 650;
+}
+
+.country-select__selected-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Bayraq şəkilləri (seçilmiş + siyahıda) — flagcdn
+.country-select__selected-flag,
+.country-option__flag {
+  display: block;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 18px;
+  border-radius: 3px;
+  object-fit: cover;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+// Şəkil yüklənməsə, emoji ehtiyat variantı
+.country-select__selected-flag-fallback,
+.country-option__flag-fallback {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 24px;
+  width: 24px;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  font-size: 19px;
+  line-height: 1;
+}
+
+.country-select__menu {
+  padding: 9px;
+}
+
+.country-select__search {
+  width: 100%;
+  min-height: 40px;
+  margin-bottom: 8px;
+  padding: 9px 11px;
+  border: 1px solid #e4eaed;
+  border-radius: 8px;
+  outline: none;
+  background: #f9fbfc;
+  color: #20313b;
+  font: inherit;
+  font-size: 13px;
+
+  &:focus {
+    border-color: var(--travel-primary);
+    background: #fff;
+  }
+}
+
+.country-select__options {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  max-height: 260px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.country-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #17252e;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease;
+
+  &:hover,
+  &:focus-visible,
+  &.is-selected {
+    background: #f1f7f8;
+    outline: none;
+  }
+
+  &.is-selected &__name {
+    color: var(--travel-primary-dark);
+  }
+
+  &__info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    min-width: 0;
+  }
+
+  &__name {
+    color: #20313b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+}
+
+.country-select__empty {
+  margin: 0;
+  padding: 15px 10px;
+  color: #7b8991;
+  font-size: 12px;
+  text-align: center;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// ---------------------------------------------------------
+// Viza statusu nişanları (ölkə siyahısında)
+// ---------------------------------------------------------
+.visa-badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 3px 7px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.4;
+
+  &--free {
+    border-color: rgba(34, 197, 94, 0.2);
+    background: rgba(34, 197, 94, 0.11);
+    color: #16804a;
+  }
+
+  &--evisa {
+    border-color: rgba(59, 130, 246, 0.2);
+    background: rgba(59, 130, 246, 0.11);
+    color: #2164c5;
+  }
+
+  &--arrival {
+    border-color: rgba(234, 179, 8, 0.25);
+    background: rgba(234, 179, 8, 0.14);
+    color: #946200;
+  }
+
+  &--unavailable {
+    border-color: rgba(239, 68, 68, 0.2);
+    background: rgba(239, 68, 68, 0.1);
+    color: #c0393b;
+  }
+}
+
+// ---------------------------------------------------------
+// Tarix seçici (təqvim)
+// ---------------------------------------------------------
+.date-picker__menu {
+  padding: 14px;
+  color: var(--travel-text);
+}
+
+.date-picker__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.date-picker__title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.date-picker__nav {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #f1f5f6;
+  color: var(--travel-text);
+  cursor: pointer;
+  transition: background 0.2s ease;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  &:hover:not(:disabled) {
+    background: #e2eaec;
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+}
+
+.date-picker__weekdays,
+.date-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.date-picker__weekdays {
+  margin-bottom: 6px;
+  color: #8a989d;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.date-picker__day {
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled):not(.is-selected) {
+    background: #e6f3f4;
+  }
+
+  &:disabled {
+    color: #c3cdd0;
+    cursor: not-allowed;
+  }
+
+  &.is-today:not(.is-selected) {
+    color: var(--travel-primary);
+    box-shadow: inset 0 0 0 1.5px var(--travel-primary);
+  }
+
+  &.is-selected {
+    background: var(--travel-primary);
+    color: #fff;
+  }
+}
+
+.date-picker__footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #eef2f3;
+}
+
+.date-picker__link {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--travel-primary);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// ---------------------------------------------------------
+// Viza növü dropdown
+// ---------------------------------------------------------
+.visa-select__value {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.visa-select__menu {
+  padding: 6px;
+}
+
+.visa-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 11px;
+  border: 0;
+  border-radius: 9px;
+  background: transparent;
+  color: #20313b;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 550;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.18s ease;
+
+  &:hover {
+    background: #f1f7f8;
+  }
+
+  &.is-selected {
+    background: var(--travel-primary-soft);
+    color: var(--travel-primary-dark);
+    font-weight: 700;
+  }
+}
+
+.visa-dot {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #9aa8ad;
+
+  &--free {
+    background: #22a06b;
+  }
+
+  &--evisa {
+    background: #2f7de1;
+  }
+
+  &--arrival {
+    background: #f2a516;
+  }
+
+  &--consulate {
+    background: #d64550;
+  }
+}
+
+// ---------------------------------------------------------
+// Səyahətçi sayı
+// ---------------------------------------------------------
+.search-field--travelers {
+  min-width: 0;
+}
+
+.traveler-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  min-height: 26px;
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: 1px solid var(--travel-border);
+    border-radius: 7px;
+    background: #fff;
+    color: var(--travel-primary);
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    &:hover:not(:disabled) {
+      background: var(--travel-primary-soft);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+  }
+
+  output {
+    color: var(--travel-text);
+    font-size: 12px;
+    font-weight: 650;
+    white-space: nowrap;
+  }
+}
+
+// ---------------------------------------------------------
+// Axtarış düyməsi
+// ---------------------------------------------------------
+.travel-search__submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  align-self: stretch;
+  min-width: 112px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 11px;
+  background: var(--travel-primary);
+  color: #fff;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    background: var(--travel-primary-dark);
+    transform: translateY(-1px);
+  }
+
+  i,
+  svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+    stroke-width: 1.8;
+  }
+}
+
+// ---------------------------------------------------------
+// Responsive
+// ---------------------------------------------------------
+@media (min-width: 900px) {
+  .search-fields[data-fields="tour"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 899px) {
+  .travel-search__form {
+    flex-direction: column;
+  }
+
+  .travel-search__submit {
+    width: 100%;
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 576px) {
+  .travel-search {
+    --travel-menu-offset: 14px;
+    --travel-field-pad-x: 11px;
+
+    margin-top: 20px;
+    border-radius: 14px;
+  }
+
+  .travel-search__tabs {
+    gap: 2px;
+    padding: 8px 7px 0;
+  }
+
+  .travel-tab {
+    flex: 1;
+    gap: 5px;
+    padding: 11px 4px;
+    font-size: 12px;
+
+    i,
+    svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    &.is-active::after {
+      right: 8px;
+      left: 8px;
+    }
+  }
+
+  .travel-search__form {
+    gap: 9px;
+    padding: 10px;
+  }
+
+  .search-fields,
+  .search-fields[data-fields="tour"] {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .search-field {
+    min-height: 68px;
+    padding: 9px var(--travel-field-pad-x);
+  }
+
+  .country-select__menu {
+    max-height: 65vh;
+  }
+
+  .country-select__options {
+    max-height: min(45vh, 260px);
+  }
+
+  .country-option {
+    padding: 9px;
+  }
+
+  // Təqvim mobil ekranda sahənin tam eninə
+  .date-picker__menu {
+    right: calc(var(--travel-field-pad-x) * -1);
+    width: auto;
+  }
+}

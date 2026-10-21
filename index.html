@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>AZPA TRAVEL — Dünyanı kəşf et</title>
+  <meta name="description" content="Dünyanın ən gözəl istiqamətləri, sərfəli tur paketləri və peşəkar dəstək — hamısı bir ünvanda.">
+  <meta name="theme-color" content="#087f8c">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/src/scss/main.scss">
+  <script type="module" src="assets/src/js/main.js"></script>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header" data-header>
+    <div class="container header__inner">
+
+      <a href="index.html" class="logo" aria-label="AZPA TRAVEL — Ana səhifə">
+        <img class="logo__mark" src="assets/public/images/logo-mark.svg" width="40" height="40" alt="">
+        <span class="logo__text">
+          <strong>AZPA</strong>
+          <small>TRAVEL</small>
+        </span>
+      </a>
+
+      <nav class="nav" id="main-nav" data-nav aria-label="Əsas menyu">
+        <ul class="nav__list">
+          <li class="nav__item">
+            <a href="index.html" class="nav__link is-active" aria-current="page">Ana səhifə</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="about.html" class="nav__link">Haqqımızda</a>
+          </li>
+
+          <li class="nav__item" data-nav-dropdown>
+            <button class="nav__link nav__trigger" type="button"
+              data-nav-dropdown-trigger aria-expanded="false"
+              aria-haspopup="true" aria-controls="menu-countries">
+              Ölkələr
+              <svg class="icon nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+
+            <ul class="nav__submenu" id="menu-countries">
+              <li><a class="nav__sublink" href="countries.html">Bütün ölkələr</a></li>
+              <li><a class="nav__sublink" href="countries.html?type=vizasiz">Vizasız ölkələr</a></li>
+              <li><a class="nav__sublink" href="countries.html?type=e-viza">E-viza ölkələri</a></li>
+              <li><a class="nav__sublink" href="countries.html?type=girisde-viza">Girişdə viza ölkələri</a></li>
+            </ul>
+          </li>
+
+          <li class="nav__item" data-nav-dropdown>
+            <button class="nav__link nav__trigger" type="button"
+              data-nav-dropdown-trigger aria-expanded="false"
+              aria-haspopup="true" aria-controls="menu-visa">
+              Viza müraciəti
+              <svg class="icon nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+
+            <ul class="nav__submenu" id="menu-visa">
+              <li><a class="nav__sublink nav__sublink--all" href="vizas.html">Vizalar</a></li>
+              <li><a class="nav__sublink" href="vizas.html?type=e-viza">E-viza</a></li>
+              <li><a class="nav__sublink" href="vizas.html?type=girisde-viza">Girişdə viza</a></li>
+              <li><a class="nav__sublink" href="vizas.html?type=turist">Turist vizası</a></li>
+              <li><a class="nav__sublink" href="vizas.html?type=seyahet">Səyahət vizası</a></li>
+            </ul>
+          </li>
+
+          <li class="nav__item" data-nav-dropdown>
+            <button class="nav__link nav__trigger" type="button"
+              data-nav-dropdown-trigger aria-expanded="false"
+              aria-haspopup="true" aria-controls="menu-tours">
+              Turlar
+              <svg class="icon nav__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="m6 9 6 6 6-6"/>
+              </svg>
+            </button>
+
+            <ul class="nav__submenu" id="menu-tours">
+              <li><a class="nav__sublink" href="tours.html">Bütün turlar</a></li>
+              <li><a class="nav__sublink" href="tours.html?filter=yeni">Yeni turlar</a></li>
+              <li><a class="nav__sublink" href="tours.html?filter=qaynar">Qaynar turlar</a></li>
+              <li><a class="nav__sublink" href="tours.html?filter=korporativ">Korporativ turlar</a></li>
+            </ul>
+          </li>
+
+          <li class="nav__item">
+            <a href="articles.html" class="nav__link">Məqalələr</a>
+          </li>
+
+          <li class="nav__item">
+            <a href="contact.html" class="nav__link">Əlaqə</a>
+          </li>
+        </ul>
+
+        <div class="nav__extras">
+          <a href="login.html" class="nav__login">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+            Daxil ol
+          </a>
+
+          <div class="lang-list" role="group" aria-label="Dil seçimi">
+            <button type="button" data-lang-option="az">AZ</button>
+            <button type="button" data-lang-option="en">EN</button>
+            <button type="button" data-lang-option="ru">RU</button>
+          </div>
+
+          <a href="tel:+994123101010" class="btn btn--outline-light">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+            </svg>
+            +994 12 310 10 10
+          </a>
+        </div>
+      </nav>
+
+      <div class="header__actions">
+        <a href="login.html" class="header__icon" aria-label="Daxil ol">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"/>
+            <path d="M4 21c0-4 3.6-7 8-7s8 3 8 7"/>
+          </svg>
+        </a>
+
+        <div class="lang dropdown" data-dropdown>
+          <button class="lang__trigger" type="button" data-dropdown-trigger
+            aria-haspopup="true" aria-expanded="false" aria-label="Dil seçimi">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <circle cx="12" cy="12" r="9"/>
+              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+            </svg>
+            <span data-lang-current>AZ</span>
+            <svg class="icon lang__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="m6 9 6 6 6-6"/>
+            </svg>
+          </button>
+
+          <div class="dropdown__panel lang__panel" data-dropdown-panel hidden>
+            <button class="lang__option" type="button" data-lang-option="az">Azərbaycanca</button>
+            <button class="lang__option" type="button" data-lang-option="en">English</button>
+            <button class="lang__option" type="button" data-lang-option="ru">Русский</button>
+          </div>
+        </div>
+
+        <a href="tel:+994123101010" class="btn btn--outline-light header__phone">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+            <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/>
+          </svg>
+          +994 12 310 10 10
+        </a>
+
+        <button class="burger" type="button" data-nav-toggle
+          aria-label="Menyunu aç" aria-expanded="false" aria-controls="main-nav">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <div class="nav-overlay" data-nav-overlay></div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__media">
+        <img class="hero__img" src="/images/hero.jpg" alt="Santorini, Yunanıstan" fetchpriority="high">
+      </div>
+
+      <div class="container hero__content">
+        <p class="hero__eyebrow">Dünyanı kəşf et</p>
+
+        <h1 class="hero__title" id="hero-title">
+          Xəyallarınızdakı<br>
+          səyahət<br>
+          <span class="hero__accent">AZPA TRAVEL</span> ilə<br>
+          reallığa çevrilsin!
+        </h1>
+
+        <p class="hero__lead">
+          Dünyanın ən gözəl istiqamətləri, sərfəli tur paketləri
+          və peşəkar dəstək – hamısı bir ünvanda!
+        </p>
+
+        <!-- TRAVEL SEARCH -->
+        <div class="travel-search" data-travel-search>
+          <div class="travel-search__tabs" role="tablist" aria-label="Axtarış növü">
+
+            <button class="travel-tab is-active" type="button"
+              data-search-tab="visa" role="tab" aria-selected="true">
+              <i data-lucide="file-check-2" aria-hidden="true"></i>
+              <span>Viza</span>
+            </button>
+
+            <button class="travel-tab" type="button"
+              data-search-tab="tour" role="tab" aria-selected="false">
+              <i data-lucide="plane-takeoff" aria-hidden="true"></i>
+              <span>Turlar</span>
+            </button>
+
+            <button class="travel-tab" type="button"
+              data-search-tab="country" role="tab" aria-selected="false">
+              <i data-lucide="globe-2" aria-hidden="true"></i>
+              <span>Ölkələr</span>
+            </button>
+          </div>
+
+          <form class="travel-search__form" action="tours.html" method="get" data-travel-form>
+            <input type="hidden" name="type" value="visa" data-mode-input>
+
+            <!-- VİZA -->
+            <div class="search-fields" data-fields="visa">
+              <div class="search-field">
+                <label>Pasportunuzun ölkəsi</label>
+
+                <!-- data-only="az": dropdown-da yalnız Azərbaycan çıxır -->
+                <div class="country-select" data-country-select data-only="az">
+                  <input type="hidden" name="passport" value="az">
+
+                  <button class="country-select__trigger" type="button"
+                    data-country-trigger aria-expanded="false">
+                    <span class="country-select__value" data-country-value>
+                      <img class="country-select__selected-flag" src="https://flagcdn.com/w40/az.png" alt="" width="24" height="18">
+                      <span class="country-select__selected-name">Azərbaycan</span>
+                    </span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="country-select__menu" data-country-menu>
+                    <input class="country-select__search" type="search"
+                      data-country-search placeholder="Ölkə axtar..."
+                      aria-label="Pasport ölkəsi axtar" autocomplete="off">
+
+                    <div class="country-select__options" data-country-options role="listbox"></div>
+                    <p class="country-select__empty" data-country-empty hidden>Ölkə tapılmadı</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-field">
+                <label>Gedəcəyiniz ölkə</label>
+
+                <div class="country-select" data-country-select data-show-visa-status>
+                  <input type="hidden" name="destination" value="">
+
+                  <button class="country-select__trigger" type="button"
+                    data-country-trigger aria-expanded="false">
+                    <span class="country-select__value" data-country-value>Ölkə seçin</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="country-select__menu" data-country-menu>
+                    <input class="country-select__search" type="search"
+                      data-country-search placeholder="Ölkə axtar..."
+                      aria-label="Gediləcək ölkəni axtar" autocomplete="off">
+
+                    <div class="country-select__options" data-country-options role="listbox"></div>
+                    <p class="country-select__empty" data-country-empty hidden>Ölkə tapılmadı</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TURLAR -->
+            <div class="search-fields" data-fields="tour" hidden>
+              <div class="search-field">
+                <label>Haradan</label>
+
+                <div class="country-select" data-country-select>
+                  <input type="hidden" name="from" value="az" disabled>
+
+                  <button class="country-select__trigger" type="button"
+                    data-country-trigger aria-expanded="false">
+                    <span class="country-select__value" data-country-value>
+                      <img class="country-select__selected-flag" src="https://flagcdn.com/w40/az.png" alt="" width="24" height="18">
+                      <span class="country-select__selected-name">Azərbaycan</span>
+                    </span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="country-select__menu" data-country-menu>
+                    <input class="country-select__search" type="search"
+                      data-country-search placeholder="Ölkə axtar..."
+                      aria-label="Gediş ölkəsini axtar" autocomplete="off">
+
+                    <div class="country-select__options" data-country-options role="listbox"></div>
+                    <p class="country-select__empty" data-country-empty hidden>Ölkə tapılmadı</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-field">
+                <label>Haraya</label>
+
+                <div class="country-select" data-country-select data-show-visa-status>
+                  <input type="hidden" name="to" value="" disabled>
+
+                  <button class="country-select__trigger" type="button"
+                    data-country-trigger aria-expanded="false">
+                    <span class="country-select__value" data-country-value>Təyinat seçin</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="country-select__menu" data-country-menu>
+                    <input class="country-select__search" type="search"
+                      data-country-search placeholder="Ölkə axtar..."
+                      aria-label="Təyinat ölkəsini axtar" autocomplete="off">
+
+                    <div class="country-select__options" data-country-options role="listbox"></div>
+                    <p class="country-select__empty" data-country-empty hidden>Ölkə tapılmadı</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-field">
+                <label>Səyahət tarixi</label>
+
+                <div class="date-picker" data-date-picker>
+                  <input type="hidden" name="date" value="" disabled>
+
+                  <button class="date-picker__trigger" type="button"
+                    data-date-trigger aria-haspopup="dialog" aria-expanded="false">
+                    <i data-lucide="calendar-days" aria-hidden="true"></i>
+                    <span data-date-value>Tarix seçin</span>
+                  </button>
+
+                  <div class="date-picker__menu" data-date-menu role="dialog" aria-label="Tarix seçimi"></div>
+                </div>
+              </div>
+
+              <div class="search-field search-field--travelers">
+                <label>Səyahətçilər</label>
+
+                <div class="traveler-control" data-travelers>
+                  <button type="button" data-travelers-decrease aria-label="Nəfər sayını azalt">−</button>
+                  <output data-travelers-value>2</output>
+                  <input type="hidden" name="travelers" value="2" disabled>
+                  <button type="button" data-travelers-increase aria-label="Nəfər sayını artır">+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- ÖLKƏLƏR -->
+            <div class="search-fields" data-fields="country" hidden>
+              <div class="search-field">
+                <label>Ölkə seçimi</label>
+
+                <div class="country-select" data-country-select data-show-visa-status>
+                  <input type="hidden" name="country" value="" disabled>
+
+                  <button class="country-select__trigger" type="button"
+                    data-country-trigger aria-expanded="false">
+                    <span class="country-select__value" data-country-value>Ölkə seçin</span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="country-select__menu" data-country-menu>
+                    <input class="country-select__search" type="search"
+                      data-country-search placeholder="Ölkə axtar..."
+                      aria-label="Ölkə axtar" autocomplete="off">
+
+                    <div class="country-select__options" data-country-options role="listbox"></div>
+                    <p class="country-select__empty" data-country-empty hidden>Ölkə tapılmadı</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="search-field">
+                <label>Viza növü</label>
+
+                <div class="visa-select" data-visa-select>
+                  <input type="hidden" name="visa_type" value="" disabled>
+
+                  <button class="visa-select__trigger" type="button"
+                    data-visa-trigger aria-haspopup="listbox" aria-expanded="false">
+                    <span class="visa-select__value" data-visa-value></span>
+                    <i data-lucide="chevron-down" aria-hidden="true"></i>
+                  </button>
+
+                  <div class="visa-select__menu" data-visa-options role="listbox"></div>
+                </div>
+              </div>
+            </div>
+
+            <button class="travel-search__submit btn btn--primary" type="submit">
+              <i data-lucide="search" aria-hidden="true"></i>
+              <span>Axtar</span>
+            </button>
+          </form>
+
+        </div>
+      </div>
+    </section>
+    
+  </main>
+
+</body>
+</html>

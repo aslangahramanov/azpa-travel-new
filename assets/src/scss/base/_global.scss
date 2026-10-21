@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+:root {
+  --header-h: #{$header-height};
+
+  @include down(lg) {
+    --header-h: #{$header-height-sm};
+  }
+}
+
+body {
+  background: $color-white;
+}
+
+.icon {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+a, button { @include focus-ring; }

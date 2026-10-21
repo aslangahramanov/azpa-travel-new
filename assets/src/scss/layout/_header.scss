@@ -1,0 +1,162 @@
+@use '../abstracts/variables' as *;
+@use '../abstracts/mixins' as *;
+
+.header {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: $z-header;
+  height: var(--header-h);
+  color: $color-white;
+  transition: height 0.3s;
+
+  // Fon ayrıca qatda: header-in özündə backdrop-filter olsa,
+  // mobil menyu (position: fixed) düzgün işləməz.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba($color-navy, 0.86);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.18);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  &.is-scrolled {
+    --header-h: #{$header-height-scrolled};
+
+    &::before { opacity: 1; }
+  }
+
+  &__inner {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  &__actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  // Giriş ikonu
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transition: background 0.2s;
+
+    &:hover { background: rgba($color-white, 0.14); }
+    .icon { width: 22px; height: 22px; }
+
+    @include down(xl) { display: none; }
+  }
+
+  &__phone {
+    margin-left: 8px;
+
+    @include down(xl) { display: none; }
+  }
+}
+
+// ----- Dil seçimi (desktop) -----
+.lang {
+  position: relative;
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    color: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    transition: background 0.2s;
+
+    &:hover { background: rgba($color-white, 0.14); }
+    .icon { width: 20px; height: 20px; }
+    .lang__chevron { width: 14px; height: 14px; transition: transform 0.2s; }
+  }
+
+  &.is-open &__chevron { transform: rotate(180deg); }
+
+  &__panel {
+    top: calc(100% + 14px);
+    right: 0;
+    min-width: 150px;
+    padding: 6px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 2px;
+    color: $color-text;
+  }
+
+  &__option {
+    padding: 10px 12px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+
+    &:hover { background: #eef4ff; color: $color-primary; }
+    &.is-active { color: $color-primary; background: #eef4ff; }
+  }
+
+  @include down(xl) { display: none; }
+}
+
+// ----- Dil seçimi (mobil menyu) -----
+.lang-list {
+  display: flex;
+  gap: 8px;
+
+  button {
+    flex: 1;
+    height: 44px;
+    border: 1.5px solid rgba($color-white, 0.25);
+    border-radius: 12px;
+    background: transparent;
+    color: $color-white;
+    font-size: 14px;
+    font-weight: 700;
+
+    &.is-active { background: $color-primary; border-color: $color-primary; }
+  }
+}
+
+// Logo
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  &__mark { width: 40px; height: 40px; }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+
+    strong { font-size: 26px; font-weight: 800; letter-spacing: 0.02em; }
+    small  { margin-top: 4px; font-size: 10px; font-weight: 600; letter-spacing: 0.5em; opacity: 0.85; }
+  }
+
+  @include down(lg) {
+    &__mark { width: 34px; height: 34px; }
+    &__text strong { font-size: 22px; }
+  }
+}

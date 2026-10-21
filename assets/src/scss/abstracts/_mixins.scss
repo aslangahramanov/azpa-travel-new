@@ -1,0 +1,23 @@
+@use 'sass:map';
+@use 'variables' as *;
+
+// Ekran bu ölçüdən kiçikdirsə
+@mixin down($bp) {
+  @media (max-width: #{map.get($breakpoints, $bp) - 0.02px}) {
+    @content;
+  }
+}
+
+// Ekran bu ölçüdən və ya böyükdürsə
+@mixin up($bp) {
+  @media (min-width: #{map.get($breakpoints, $bp)}) {
+    @content;
+  }
+}
+
+@mixin focus-ring {
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
